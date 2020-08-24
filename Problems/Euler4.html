@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Euler4</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        min-height: 100vh;
+      }
+
+      h1,
+      h3,
+      a {
+        text-align: center;
+      }
+
+      p {
+        width: 100%;
+        margin: 10 auto;
+        
+      }
+      .problem {
+        display: flex;
+        justify-content: center;
+        align-items: start;
+        flex-direction: column;
+        width: 800px;
+        height: auto;
+        margin: 20px auto;
+        border: 1px solid #ccc;
+        padding: 10px;
+        box-shadow: 5px 5px 5px #ccc;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Euler Project</h1>
+    <h3>Problem 4</h3>
+    <div class="problem">
+      <p>
+        A palindromic number reads the same both ways. The largest palindrome
+        made from the product of two 2-digit numbers is 9009 = 91 × 99. Find the
+        largest palindrome made from the product of two 3-digit numbers.
+      </p>
+    </div>
+
+    <script>
+      function findProductsOfPalindrome(digits) {
+        let x = Math.pow(10, digits - 1);
+        let y = Math.pow(10, digits - 1);
+        let numCapicuas = [];
+
+        while (x != Math.pow(10, digits) - 1) {
+          y = Math.pow(10, digits - 1);
+          while (y != Math.pow(10, digits) - 1) {
+            let z = x * y;
+            if (checkPalindrome(z) == true) {
+              numCapicuas.push(z);
+            }
+            y++;
+          }
+          x++;
+        }
+        return Math.max(...numCapicuas);
+      }
+
+      function checkPalindrome(number) {
+        if (number == NaN) return;
+        let numString = number.toString();
+        let reverseNum = numString.split("").reverse().join("");
+        return numString == reverseNum ? true : false;
+      }
+
+      console.log(findProductsOfPalindrome(3));
+    </script>
+  </body>
+</html>

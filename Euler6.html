@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Euler 6</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        min-height: 100vh;
+      }
+
+      h1,
+      h3,
+      a {
+        text-align: center;
+      }
+
+      p {
+        width: 100%;
+        margin: 10 auto;
+        line-height: 30px;
+      }
+      .problem {
+        display: flex;
+        justify-content: center;
+        align-items: start;
+        flex-direction: column;
+        width: 800px;
+        height: auto;
+        margin: 20px auto;
+        border: 1px solid #ccc;
+        padding: 10px;
+        box-shadow: 5px 5px 5px #ccc;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Euler Project</h1>
+    <h3>Problem 6</h3>
+    <div class="problem">
+      <p>
+      The sum of the squares of the first ten natural numbers is,
+      1**2+2**2+...+10**2=385. <br/> The square of the sum of the first ten natural
+      numbers is, (1+2+...+10)**2=55**2=3025. <br/>  Hence the difference between the
+      sum of the squares of the first ten natural numbers and the square of the
+      sum is 3025−385=2640.<br/>  Find the difference between the sum of the squares
+      of the first one hundred natural numbers and the square of the sum.
+    </p>
+    </div>
+    
+    <script>
+      //creamos una funcion para el cuadrado de la suma primero
+
+      function cuadradoDeLaSuma(numero) {
+        let resultado = (numero * (numero + 1)) / 2;
+
+        return resultado ** 2;
+      }
+
+      //creamos una funcion para la suma de los cuadrados
+
+      function sumaDeCuadrados(n) {
+        let resultado = (n * (n + 1) * (2 * n + 1)) / 6;
+
+        return resultado;
+      }
+
+      //creamos la funcion para obtener la diferencia entre la suma de cuadrados y el cuadrado de la suma:
+
+      function resolucion(numero) {
+        return cuadradoDeLaSuma(numero) - sumaDeCuadrados(numero);
+      }
+
+      console.log(resolucion(100));
+      
+    </script>
+  </body>
+</html>

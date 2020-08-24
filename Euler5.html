@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Euler5</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        min-height: 100vh;
+      }
+
+      h1,
+      h3,
+      a {
+        text-align: center;
+      }
+
+      p {
+        width: 100%;
+        margin: 10 auto;
+      }
+      .problem {
+        display: flex;
+        justify-content: center;
+        align-items: start;
+        flex-direction: column;
+        width: 800px;
+        height: auto;
+        margin: 20px auto;
+        border: 1px solid #ccc;
+        padding: 10px;
+        box-shadow: 5px 5px 5px #ccc;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Euler Project</h1>
+    <h3>Problem 4</h3>
+    <div class="problem">
+      <p></p>
+        2520 is the smallest number that can be divided by each of the numbers
+        from 1 to 10 without any remainder.
+      </p>
+      <p>
+        What is the smallest positive number that is evenly divisible by all of
+        the numbers from 1 to 20?
+      </p>
+    </div>
+
+    <script>
+      //  Cálculo del mínimo común múltiplo
+      //   1.Se descomponen los números en factores primos
+
+      //   2. Se toman los factores comunes y no comunes con mayor exponente.
+
+      Array.prototype.unique = (function (a) {
+        return function () {
+          return this.filter(a);
+        };
+      })(function (a, b, c) {
+        return c.indexOf(a, b + 1) < 0;
+      });
+
+      function minimoComunMultiplo(numero) {
+        //devuelve el MINIMO COMUN MULTIPLO
+        let todosLosFactores = [];
+        let factores;
+        let resultado = [];
+        while (numero > 1) {
+          //con este loop obtenemos los factores de cada numero entre 20 y 2
+          factores = factoresNum(numero);
+
+          Array.prototype.push.apply(todosLosFactores, factores); //empujamos en un array los factores...
+          numero--;
+        }
+        todosLosFactores = todosLosFactores.unique(); //eliminamos los repetidos...
+        todosLosFactores.sort((a, b) => (a > b ? -1 : 1)); //ordenamos los valores de mayor a menor
+
+        todosLosFactores.map((numero) => {
+          //elimino los factores comunes de menor exponente...
+
+          if (!chequearSiEsPrimo(numero)) {
+            for (let i = 0; i < 7; i++) {
+              if (
+                numero % todosLosFactores[i] == 0 &&
+                numero != todosLosFactores[i]
+              ) {
+                todosLosFactores.splice(i, 1);
+              }
+            }
+          }
+        });
+
+        return todosLosFactores.reduce((p, c) => p * c); //retornamos la multiplicacion de los factores comunes y no comunces de mayor exponente
+      }
+
+      function factoresNum(numero) {
+        // funcion que devuelve los factores de un numero
+        let factores = [];
+
+        while (numero != 1) {
+          factores.push(descomposicionEnPrimo(numero, 1));
+          numero = numero / descomposicionEnPrimo(numero, 1);
+        }
+        return factores;
+      }
+
+      function descomposicionEnPrimo(numero, divisor) {
+        // dado un numero, devuelve los factores primos (o multiplos de primos)
+        let primo = siguientePrimo(divisor);
+        let exp = 0;
+
+        if (numero % primo == 0 && numero != 1) {
+          while (numero % primo == 0) {
+            numero = numero / primo;
+            exp++;
+          }
+        } else {
+          return descomposicionEnPrimo(numero, primo);
+        }
+
+        return primo ** exp; //retorna un factor primo (por ejemplo, de un input 20 retorna 4 porque su raiz es 2)
+      }
+
+      function siguientePrimo(numero) {
+        //retorna el siguiente primo...
+        let number = numero + 1;
+        let count = 1;
+        let dividers = 0;
+        while (count <= number) {
+          if (number % count == 0) {
+            dividers++;
+          }
+
+          count++;
+        }
+        if (dividers == 2) {
+          return number;
+        } else {
+          return siguientePrimo(number);
+        }
+      }
+
+      function chequearSiEsPrimo(number) {
+        //devuelve false si no es primo y true si lo es
+        let count = 1;
+        let dividers = 0;
+        while (count <= number) {
+          if (number % count == 0) {
+            dividers++;
+          }
+
+          count++;
+        }
+        return dividers == 2 ? true : false;
+      }
+    </script>
+  </body>
+</html>

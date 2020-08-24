@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Euler 14</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        min-height: 100vh;
+      }
+
+      h1,
+      h3,
+      a {
+        text-align: center;
+      }
+
+      p {
+        margin: 2px auto;
+        margin: 5px 0;
+      }
+      .problem {
+        display: flex;
+        justify-content: center;
+        align-items: start;
+        flex-direction: column;
+        width: 800px;
+        height: 300px;
+        margin: 10px auto;
+        border: 1px solid #ccc;
+        padding: 20px;
+        box-shadow: 7px 7px 6px #ccc;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Euler Project</h1>
+    <h3>Problem 14</h3>
+    <div class="problem">
+      <p>
+        The following iterative sequence is defined for the set of positive
+        integers:
+      </p>
+
+      <p>n → n/2 (n is even)</p>
+      <p>n → 3n + 1 (n is odd)</p>
+
+      <p>
+        Using the rule above and starting with 13, we generate the following
+        sequence:
+      </p>
+
+      <p>13 → 40 → 20 → 10 → 5 → 16 → 8 → 4 → 2 → 1</p>
+      <p>
+        It can be seen that this sequence (starting at 13 and finishing at 1)
+        contains 10 terms. Although it has not been proved yet (Collatz
+        Problem), it is thought that all starting numbers finish at 1.
+      </p>
+      <p>
+        Which starting number, under one million, produces the longest chain?
+      </p>
+      <p>
+        NOTE: Once the chain starts the terms are allowed to go above one
+        million.
+      </p>
+    </div>
+
+    <script>
+      console.time("process");
+      function orbitNumbs(n) {
+        let count = 1;
+        while (n != 1) {
+          if (Boolean(n & 1)) {
+            n = 3 * n + 1;
+          } else {
+            n = n / 2;
+          }
+          count++;
+        }
+        return count;
+      }
+
+      function getLongestOrbit(number) {
+        let maxOrbit = 0;
+        let count = 1;
+        let orbit;
+        let n;
+        while (count < number) {
+          orbit = orbitNumbs(count);
+          if (orbit > maxOrbit) {
+            maxOrbit = orbit;
+            n = count;
+          }
+          count++;
+        }
+
+        return n;
+      }
+      // console.log(getLongestOrbit(1000000));
+      console.timeEnd("process");
+
+      class Hero {
+        constructor(name, realName, enemy, canFly) {
+          this.name = name;
+          this.realName = realName;
+          this.enemy = enemy;
+          this.canFly = canFly;
+        }
+
+        presentation() {
+          return "Hi, my name is " + this.name + ".";
+        }
+      }
+
+      class Movie extends Hero {
+        constructor(name, realName, enemy, canFly) {
+          super(name, realName, enemy, canFly);
+          this.name = name;
+          this.movies = {
+              saga: {
+                first: { name: "Batman", year: 1989 },
+                second: [
+                  { name: "Batman Vuelve", year: 1992 },
+                  { name: "BatmanForever", year: 1995 },
+                  { name: "Batman & Robin", year: 1997 },
+                ],
+                third: [
+                  { name: "Batman Begins", year: 2005 },
+                  { name: "Batman, el caballero oscuro", year: 2008 },
+                  {
+                    name: "El Caballero Oscuro: La leyenda renace)",
+                    year: 2012,
+                  },
+                ],
+                four: { name: "Joker", year: 2019 },
+              },
+          };
+        }
+        hasMovies() {
+          if ((this.name = "Batman")) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      }
+
+      const batman = new Movie("Batman", "Bruce Wayne", "Joker", false);
+    
+    </script>
+  </body>
+</html>
